@@ -1,10 +1,10 @@
-FROM golang:1.16-buster AS build
+FROM golang:1.18-buster AS build
 
 WORKDIR /app
+COPY go.mod go.sum .
+RUN go mod download
 
 COPY . .
-
-RUN go mod vendor
 
 RUN go test ./... -v
 RUN go build -o /k8shttpgo
